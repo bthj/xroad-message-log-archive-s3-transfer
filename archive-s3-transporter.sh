@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# based on https://github.com/nordic-institute/X-Road/blob/develop/src/addons/messagelog/scripts/archive-http-transporter.sh
+
 LOCK=/var/lock/xroad-archive.lock
 
 DEFAULT_ARCHIVE_DIR=/var/lib/xroad
