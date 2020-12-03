@@ -1,6 +1,6 @@
 # X-Road Message Log Archive S3 Transfer
 
-Script and corresponding credentials for transferring X-Road Message Log archive files to an AWS S3 bucket (based on the X-Road message log package [archive-http-transporter.sh](https://github.com/nordic-institute/X-Road/blob/develop/src/addons/messagelog/scripts/archive-http-transporter.sh) script).  This script also synchronises the X-Road Security Server configuration backup files to the bucket.
+Script and corresponding credential templates for transferring X-Road Message Log archive files to an AWS S3 bucket (based on the X-Road message log package [archive-http-transporter.sh](https://github.com/nordic-institute/X-Road/blob/develop/src/addons/messagelog/scripts/archive-http-transporter.sh) script).  This script also synchronises the X-Road Security Server configuration backup files to the bucket.
 
 - As a user with `sudo` permissions, execute the following script to install the AWS CLI tool:
 ```
