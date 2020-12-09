@@ -9,6 +9,7 @@ DEFAULT_ARCHIVE_DIR=/var/lib/xroad
 BUCKET=
 ARCHIVE_DIR=$DEFAULT_ARCHIVE_DIR
 REMOVE_TRANSPORTED_FILES=
+SYNC_BACKUP_FILES=
 
 die () {
   echo >&2 "ERROR: $@"
@@ -39,6 +40,9 @@ do
       ;;
     -r|--remove)
       REMOVE_TRANSPORTED_FILES=true
+      ;;
+    -s|--sync-backup)
+      SYNC_BACKUP_FILES=true
       ;;
     -h|--help)
       usage
@@ -75,7 +79,7 @@ flock -n 123 || die "There is archive transporter process already running"
     i_md5_checksum=$(openssl md5 -binary $i | base64)
     aws s3api put-object \
       --bucket $BUCKET \
-      --key mlog/$(basename $i) \
+      --key mlog/$(hostname)/$(basename $i) \
       --body $i \
       --content-md5 $i_md5_checksum
     ret=$?
@@ -90,8 +94,10 @@ flock -n 123 || die "There is archive transporter process already running"
     fi
   done
 
-  echo "Synchronize database backup files to the storage bucket"
-  aws s3 sync $ARCHIVE_DIR/backup s3://$BUCKET/backup
+  if [[ $SYNC_BACKUP_FILES ]]; then
+    echo "Synchronize database backup files to the storage bucket"
+    aws s3 sync $ARCHIVE_DIR/backup s3://$BUCKET/backup/$(hostname)
+  fi
 
 ) 123> $LOCK || die "Cannot aquire lock"
 
