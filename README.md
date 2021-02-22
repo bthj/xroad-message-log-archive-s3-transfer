@@ -32,3 +32,8 @@ or if backup files should be synchronized, along with the transfer of message lo
 archive-transfer-command=/usr/share/xroad-archive-transfer/archive-s3-transporter.sh -s -r <bucket-name>
 ```
   where `<bucket-name>` is the name of the bucket where achive and backup files are to be stored.
+
+- Apply the X-Road configuration by issuing:
+```
+systemctl restart xroad-proxy
+```
